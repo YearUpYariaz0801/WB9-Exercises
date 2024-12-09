@@ -1,4 +1,4 @@
-package com.pluralsight.NorthwindTradersSpringBoot;
+package models;
 import java.util.Objects;
 public class Product {
     private int productId;
