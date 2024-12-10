@@ -1,32 +1,35 @@
 package com.pluralsight.NorthwindTradersSpringBoot;
 
 import com.abdurraheem.utils.Console;
-import com.pluralsight.NorthwindTradersSpringBoot.dao.interfaces.ProductDao;
-import com.pluralsight.NorthwindTradersSpringBoot.models.Product;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.ApplicationContext;
+import dao.impl.SimpleProductDao;
+import dao.interfaces.ProductDao;
+import models.Product;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@SpringBootApplication
-public class NorthwindTradersSpringBootApplication {
+@Component
+public class NorthwindApplication implements CommandLineRunner {
 
-	//private static ProductDao productDao;
-	private static ApplicationContext context;
+	@Autowired
+	private ProductDao productDao;
 
-	public static void main(String[] args) {
-		context = SpringApplication.run(NorthwindTradersSpringBootApplication.class, args);
-		for(String bean : context.getBeanDefinitionNames()){
-			System.out.println(bean);
-		}
+	@Override
+	public void run(String... args) throws Exception {
+
+
+
 		String options = """
                 Please select from the following choices:
                 1 - Add Product
                 2 - List All Products
                 99 - Quit
                 >>>\s""";
+
 		int selection;
+
 		// User Interface Loop
 		do {
 			selection = Console.PromptForInt(options);
@@ -37,23 +40,30 @@ public class NorthwindTradersSpringBootApplication {
 				default -> System.out.println("Invalid selection. Please try again.");
 			}
 		} while (true);
-		SpringApplication.run(NorthwindTradersSpringBootApplication.class, args);
+
 	}
 
-	private static void processGetAllProducts() {
-		ProductDao productDao = context.getBean(ProductDao.class);
+
+
+
+	private void processGetAllProducts() {
+
 		List<Product> products = productDao.getAll();
 		for(Product p : products){
 			System.out.println(p);
 		}
 	}
-	private static void processAddProduct() {
-		ProductDao productDao = context.getBean(ProductDao.class);
+
+	private void processAddProduct() {
+
 		int productId = Console.PromptForInt("Please enter the Product ID: ");
 		String name = Console.PromptForString("Please enter the Product Name: ");
 		String category = Console.PromptForString("Please enter the Category:" );
 		double price = Console.PromptForDouble("Please enter the price: ");
 		Product p1 = new Product(productId, name, category, price);
+
 		productDao.add(p1);
+
+		System.out.println("Added product: \n" + p1);
 	}
-}}
+

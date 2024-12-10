@@ -1,8 +1,8 @@
 package com.pluralsight.NorthwindTradersSpringBoot;
 import com.abdurraheem.utils.Console;
-import com.pluralsight.NorthwindTradersSpringBoot.dao.impl.SimpleProductDao;
-import com.pluralsight.NorthwindTradersSpringBoot.dao.interfaces.ProductDao;
-import com.pluralsight.NorthwindTradersSpringBoot.models.Product;
+import dao.impl.SimpleProductDao;
+import dao.interfaces.ProductDao;
+import models.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
